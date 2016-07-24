@@ -28,9 +28,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.Bone;
+import spine.Bone;
 
 class FlipYTimeline extends FlipXTimeline {
 	public function new (frameCount:Int) {

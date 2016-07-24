@@ -1,4 +1,4 @@
-package com.spine.atlas;
+package spine.atlas;
 
 interface TextureLoader {
 	function loadPage (page:AtlasPage, path:String) : Void;

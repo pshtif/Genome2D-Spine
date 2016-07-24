@@ -27,10 +27,10 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-package com.spine;
+package spine;
 
-import com.spine.Exception;
-import com.spine.BoneData;
+import spine.Exception;
+import spine.BoneData;
 
 class SlotData {
 	public var name:String;

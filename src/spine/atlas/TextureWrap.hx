@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.atlas;
+package spine.atlas;
 
 @:enum
 abstract TextureWrap(String) from String to String {

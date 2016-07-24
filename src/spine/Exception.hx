@@ -1,4 +1,4 @@
-package com.spine;
+package spine;
 class Exception {
 	public var msg:String;
 	public function new(msg:String) {

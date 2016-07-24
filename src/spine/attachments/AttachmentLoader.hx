@@ -23,8 +23,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.spine.attachments;
-import com.spine.Skin;
+package spine.attachments;
+import spine.Skin;
 
 interface AttachmentLoader {
 	/** @return May be null to not load an attachment. */

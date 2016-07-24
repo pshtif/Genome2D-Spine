@@ -23,9 +23,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.spine.attachments;
+package spine.attachments;
 
-import com.spine.Exception;
+import spine.Exception;
 class Attachment {
 	public var name:String;
 

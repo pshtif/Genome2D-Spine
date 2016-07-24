@@ -1,4 +1,4 @@
-package com.spine;
+package spine;
 
 class MathUtils {
 	public inline static var MAX_INT = 2147483647; // 2**31 - 1

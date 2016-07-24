@@ -28,10 +28,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.attachments;
+package spine.attachments;
 
-import com.spine.Slot;
-import com.spine.Bone;
+import spine.Slot;
+import spine.Bone;
 
 import haxe.ds.Vector;
 

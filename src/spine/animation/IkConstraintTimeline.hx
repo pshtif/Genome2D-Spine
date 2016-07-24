@@ -28,12 +28,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.ArrayUtils;
-import com.spine.Event;
-import com.spine.IkConstraint;
-import com.spine.Skeleton;
+import spine.ArrayUtils;
+import spine.Event;
+import spine.IkConstraint;
+import spine.Skeleton;
 import haxe.ds.Vector;
 
 class IkConstraintTimeline extends CurveTimeline {

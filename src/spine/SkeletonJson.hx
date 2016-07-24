@@ -28,33 +28,33 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine;
-import com.spine.Exception;
-import com.spine.Exception.IllegalArgumentException;
-import com.spine.BoneData;
-import com.spine.Event;
-import com.spine.EventData;
-import com.spine.animation.Animation;
-import com.spine.animation.AttachmentTimeline;
-import com.spine.animation.ColorTimeline;
-import com.spine.animation.CurveTimeline;
-import com.spine.animation.DrawOrderTimeline;
-import com.spine.animation.EventTimeline;
-import com.spine.animation.FfdTimeline;
-import com.spine.animation.FlipXTimeline;
-import com.spine.animation.FlipYTimeline;
-import com.spine.animation.IkConstraintTimeline;
-import com.spine.animation.RotateTimeline;
-import com.spine.animation.ScaleTimeline;
-import com.spine.animation.Timeline;
-import com.spine.animation.TranslateTimeline;
-import com.spine.attachments.Attachment;
-import com.spine.attachments.AttachmentLoader;
-import com.spine.attachments.AttachmentType;
-import com.spine.attachments.BoundingBoxAttachment;
-import com.spine.attachments.MeshAttachment;
-import com.spine.attachments.RegionAttachment;
-import com.spine.attachments.SkinnedMeshAttachment;
+package spine;
+import spine.Exception;
+import spine.Exception.IllegalArgumentException;
+import spine.BoneData;
+import spine.Event;
+import spine.EventData;
+import spine.animation.Animation;
+import spine.animation.AttachmentTimeline;
+import spine.animation.ColorTimeline;
+import spine.animation.CurveTimeline;
+import spine.animation.DrawOrderTimeline;
+import spine.animation.EventTimeline;
+import spine.animation.FfdTimeline;
+import spine.animation.FlipXTimeline;
+import spine.animation.FlipYTimeline;
+import spine.animation.IkConstraintTimeline;
+import spine.animation.RotateTimeline;
+import spine.animation.ScaleTimeline;
+import spine.animation.Timeline;
+import spine.animation.TranslateTimeline;
+import spine.attachments.Attachment;
+import spine.attachments.AttachmentLoader;
+import spine.attachments.AttachmentType;
+import spine.attachments.BoundingBoxAttachment;
+import spine.attachments.MeshAttachment;
+import spine.attachments.RegionAttachment;
+import spine.attachments.SkinnedMeshAttachment;
 import haxe.ds.Vector;
 
 

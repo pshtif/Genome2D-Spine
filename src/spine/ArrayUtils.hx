@@ -1,4 +1,4 @@
-package com.spine;
+package spine;
 import haxe.ds.Vector;
 
 class ArrayUtils {

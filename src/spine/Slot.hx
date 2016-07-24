@@ -27,12 +27,12 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-package com.spine;
+package spine;
 
-import com.spine.Bone;
+import spine.Bone;
 import haxe.ds.Vector;
-import com.spine.attachments.Attachment;
-import com.spine.Exception;
+import spine.attachments.Attachment;
+import spine.Exception;
 using Lambda;
 
 class Slot {

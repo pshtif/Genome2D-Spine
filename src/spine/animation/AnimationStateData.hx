@@ -27,10 +27,10 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.SkeletonData;
-import com.spine.Exception;
+import spine.SkeletonData;
+import spine.Exception;
 
 class AnimationStateData {
 	public var skeletonData:SkeletonData;

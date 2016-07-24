@@ -28,13 +28,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.ArrayUtils;
-import com.spine.Event;
-import com.spine.Skeleton;
-import com.spine.Slot;
-import com.spine.attachments.Attachment;
+import spine.ArrayUtils;
+import spine.Event;
+import spine.Skeleton;
+import spine.Slot;
+import spine.attachments.Attachment;
 import haxe.ds.Vector;
 
 class FfdTimeline extends CurveTimeline {

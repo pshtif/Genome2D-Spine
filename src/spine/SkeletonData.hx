@@ -28,12 +28,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine;
+package spine;
 
-import com.spine.BoneData;
-import com.spine.EventData;
-import com.spine.animation.Animation;
-import com.spine.Exception;
+import spine.BoneData;
+import spine.EventData;
+import spine.animation.Animation;
+import spine.Exception;
 import haxe.ds.Vector;
 
 class SkeletonData {

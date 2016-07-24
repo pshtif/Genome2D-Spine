@@ -28,11 +28,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine;
-import com.spine.Exception;
+package spine;
+import spine.Exception;
 
-import com.spine.Exception.IllegalArgumentException;
-import com.spine.Bone;
+import spine.Exception.IllegalArgumentException;
+import spine.Bone;
 import haxe.ds.Vector;
 
 class IkConstraint {

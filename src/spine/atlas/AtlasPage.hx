@@ -28,9 +28,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.atlas;
+package spine.atlas;
 
-import com.spine.atlas.Format;
+import spine.atlas.Format;
 
 class AtlasPage {
 	public var name:String;

@@ -28,11 +28,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.atlas;
+package spine.atlas;
 
-import com.spine.Exception;
-import com.spine.atlas.Format;
-import com.spine.Exception.IllegalArgumentException;
+import spine.Exception;
+import spine.atlas.Format;
+import spine.Exception.IllegalArgumentException;
 import haxe.ds.Vector;
 
 

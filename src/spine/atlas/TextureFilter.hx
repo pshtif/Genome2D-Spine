@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.atlas;
+package spine.atlas;
 
 @:enum
 abstract TextureFilter(String) from String to String {

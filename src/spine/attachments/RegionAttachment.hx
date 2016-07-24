@@ -28,10 +28,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.attachments;
+package spine.attachments;
 
-import com.spine.ArrayUtils;
-import com.spine.Bone;
+import spine.ArrayUtils;
+import spine.Bone;
 import haxe.ds.Vector;
 
 class RegionAttachment extends Attachment implements Dynamic<Dynamic> {

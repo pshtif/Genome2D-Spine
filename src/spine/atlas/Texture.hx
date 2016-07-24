@@ -16,7 +16,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.spine.atlas;
+package spine.atlas;
 interface Texture {
 	public var width(get, never):Int;
 	public var height(get, never):Int;

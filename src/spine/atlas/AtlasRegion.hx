@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.atlas;
+package spine.atlas;
 
 class AtlasRegion {
 	public var page:AtlasPage;

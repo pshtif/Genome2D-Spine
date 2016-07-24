@@ -27,11 +27,11 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.Event;
-import com.spine.Skeleton;
-import com.spine.Exception;
+import spine.Event;
+import spine.Skeleton;
+import spine.Exception;
 import haxe.ds.Vector;
 
 class Animation {

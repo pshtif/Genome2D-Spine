@@ -28,13 +28,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.attachments;
-import com.spine.Exception;
+package spine.attachments;
+import spine.Exception;
 
-import com.spine.Exception.IllegalArgumentException;
-import com.spine.Skin;
-import com.spine.atlas.Atlas;
-import com.spine.atlas.AtlasRegion;
+import spine.Exception.IllegalArgumentException;
+import spine.Skin;
+import spine.atlas.Atlas;
+import spine.atlas.AtlasRegion;
 
 class AtlasAttachmentLoader implements AttachmentLoader {
 	private var atlas:Atlas;

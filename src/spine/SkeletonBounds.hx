@@ -28,11 +28,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine;
+package spine;
 
-import com.spine.attachments.Attachment;
-import com.spine.attachments.BoundingBoxAttachment;
-import com.spine.Polygon;
+import spine.attachments.Attachment;
+import spine.attachments.BoundingBoxAttachment;
+import spine.Polygon;
 
 class SkeletonBounds {
 	public var width(get, never):Float;

@@ -27,11 +27,11 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.ArrayUtils;
-import com.spine.Event;
-import com.spine.Skeleton;
+import spine.ArrayUtils;
+import spine.Event;
+import spine.Skeleton;
 import haxe.ds.Vector;
 
 /** Base class for frames that use an interpolation bezier curve. */

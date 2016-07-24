@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.spine.attachments;
+package spine.attachments;
 
 @:enum
 abstract AttachmentType(String) from String to String {

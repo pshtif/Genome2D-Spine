@@ -28,13 +28,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-package com.spine.animation;
+package spine.animation;
 
-import com.spine.ArrayUtils;
-import com.spine.Bone;
-import com.spine.Event;
-import com.spine.MathUtils;
-import com.spine.Skeleton;
+import spine.ArrayUtils;
+import spine.Bone;
+import spine.Event;
+import spine.MathUtils;
+import spine.Skeleton;
 import haxe.ds.Vector;
 
 class FlipXTimeline implements Timeline {
