@@ -5,7 +5,7 @@
  * Time: 12:37
  * To change this template use File | Settings | File Templates.
  */
-package
+package com.genome2d.spine;
 
 import com.genome2d.textures.GTexture;
 import com.genome2d.textures.GTextureManager;

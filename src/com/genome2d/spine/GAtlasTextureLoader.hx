@@ -1,7 +1,7 @@
 /**
  * Created by pstefcek on 15. 5. 2015.
  */
-package
+package com.genome2d.spine;
 
 import com.genome2d.geom.GRectangle;
 import com.genome2d.textures.GTexture;

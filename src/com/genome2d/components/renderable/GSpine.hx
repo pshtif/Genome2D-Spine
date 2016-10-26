@@ -5,7 +5,7 @@
  * Time: 14:03
  * To change this template use File | Settings | File Templates.
  */
-package
+package com.genome2d.components.renderable;
 
 import com.genome2d.context.GBlendMode;
 import com.genome2d.Genome2D;
