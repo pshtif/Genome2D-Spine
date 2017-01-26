@@ -7,21 +7,21 @@
  */
 package com.genome2d.spine;
 
+import spinehaxe.attachments.PathAttachment;
 import com.genome2d.textures.GTexture;
 import com.genome2d.textures.GTextureManager;
 
-import spine.Bone;
-import spine.Skin;
-import spine.atlas.Atlas;
-import spine.attachments.AtlasAttachmentLoader;
-import spine.attachments.Attachment;
+import spinehaxe.Bone;
+import spinehaxe.Skin;
+import spinehaxe.atlas.Atlas;
+import spinehaxe.attachments.AtlasAttachmentLoader;
+import spinehaxe.attachments.Attachment;
 
-import spine.attachments.AttachmentLoader;
-import spine.attachments.AttachmentType;
-import spine.attachments.BoundingBoxAttachment;
-import spine.attachments.MeshAttachment;
-import spine.attachments.RegionAttachment;
-import spine.attachments.SkinnedMeshAttachment;
+import spinehaxe.attachments.AttachmentLoader;
+import spinehaxe.attachments.AttachmentType;
+import spinehaxe.attachments.BoundingBoxAttachment;
+import spinehaxe.attachments.MeshAttachment;
+import spinehaxe.attachments.RegionAttachment;
 
 class GAtlasAttachmentLoader implements AttachmentLoader {
     private var g2d_atlas:Atlas;
@@ -35,7 +35,7 @@ class GAtlasAttachmentLoader implements AttachmentLoader {
         var regionAttachment:RegionAttachment = new RegionAttachment(p_name);
 
         //var texture:GTexture = GTextureManager.getTexture(g2d_atlasPrefix+"_"+p_name);
-        var texture:GTexture = cast g2d_atlas.findRegion(p_name).rendererObject;
+        var texture:GTexture = cast g2d_atlas.findRegion(p_path).rendererObject;
         regionAttachment.rendererObject = texture;
         regionAttachment.regionOffsetX = texture.pivotX * texture.width;
         regionAttachment.regionOffsetY = texture.pivotY * texture.height;
@@ -52,12 +52,11 @@ class GAtlasAttachmentLoader implements AttachmentLoader {
     }
 
     /** @return May be null to not load an attachment. */
-    public function newSkinnedMeshAttachment (skin:Skin, name:String, path:String) : SkinnedMeshAttachment {
+    public function newBoundingBoxAttachment (skin:Skin, name:String) : BoundingBoxAttachment {
         return null;
     }
 
-    /** @return May be null to not load an attachment. */
-    public function newBoundingBoxAttachment (skin:Skin, name:String) : BoundingBoxAttachment {
+    public function newPathAttachment(skin:Skin, name:String):PathAttachment {
         return null;
     }
 }

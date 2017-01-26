@@ -7,6 +7,8 @@
  */
 package com.genome2d.components.renderable;
 
+import com.genome2d.geom.GMatrix;
+import com.genome2d.geom.GMatrix3D;
 import com.genome2d.context.GBlendMode;
 import com.genome2d.Genome2D;
 import com.genome2d.components.GComponent;
@@ -20,15 +22,15 @@ import com.genome2d.textures.GTexture;
 import com.genome2d.geom.GRectangle;
 import haxe.ds.Vector;
 
-import spine.Bone;
-import spine.Skeleton;
-import spine.SkeletonData;
-import spine.SkeletonJson;
-import spine.Slot;
-import spine.animation.AnimationState;
-import spine.animation.AnimationStateData;
-import spine.atlas.Atlas;
-import spine.attachments.RegionAttachment;
+import spinehaxe.Bone;
+import spinehaxe.Skeleton;
+import spinehaxe.SkeletonData;
+import spinehaxe.SkeletonJson;
+import spinehaxe.Slot;
+import spinehaxe.animation.AnimationState;
+import spinehaxe.animation.AnimationStateData;
+import spinehaxe.atlas.Atlas;
+import spinehaxe.attachments.RegionAttachment;
 
 class GSpine extends GComponent implements IGRenderable
 {
@@ -99,38 +101,30 @@ class GSpine extends GComponent implements IGRenderable
         var rotate:Bool = (node.g2d_worldRotation != 0);
         var sx:Float = node.g2d_worldScaleX;
         var sy:Float = node.g2d_worldScaleY;
-        var fx:Float = -sx*sy/Math.abs(sx*sy);
+        var fx:Float = sx*sy/Math.abs(sx*sy);
         var cos:Float = Math.cos(node.g2d_worldRotation);
         var sin:Float = Math.sin(node.g2d_worldRotation);
-
+        var matrix:GMatrix = new GMatrix();
         var context:IGContext = Genome2D.getInstance().getContext();
 
         if (_activeSkeleton != null) {
             var drawOrder:Array<Slot> = _activeSkeleton.drawOrder;
+
             for (i in 0...drawOrder.length) {
                 var slot:Slot = drawOrder[i];
                 var regionAttachment:RegionAttachment = cast slot.attachment;
                 if (regionAttachment != null) {
                     var bone:Bone = slot.bone;
 
-                    // CHECK NA VISIBILITY BONEU
-                    //if (bone.hidden) continue;
-
-                    var tx:Float = bone.worldX + regionAttachment.x * bone.m00 + regionAttachment.y * bone.m01;
-                    var ty:Float = bone.worldY + regionAttachment.x * bone.m10 + regionAttachment.y * bone.m11;
-                    var tr:Float = fx * (bone.worldRotation + regionAttachment.rotation) * Math.PI / 180;
-                    var tsx:Float = bone.worldScaleX + regionAttachment.scaleX - 1;
-                    var tsy:Float = bone.worldScaleY + regionAttachment.scaleY - 1;
-
-                    if (rotate) {
-                        var tx2:Float = tx;
-                        tx = tx * cos - ty * sin;
-                        ty = tx2 * sin + ty * cos;
-                    }
-
                     var texture:GTexture = cast regionAttachment.rendererObject;
-					if (texture.rotate) tr += Math.PI / 2;
-                    context.draw(regionAttachment.rendererObject, GBlendMode.NORMAL, tx * sx + node.g2d_worldX, ty * sy + node.g2d_worldY, tsx * sx, tsy * sy, (tr - fx * node.g2d_worldRotation), node.g2d_worldRed, node.g2d_worldGreen, node.g2d_worldBlue, node.g2d_worldAlpha);
+                    matrix.identity();
+                    matrix.scale(regionAttachment.scaleX,regionAttachment.scaleY);
+                    matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
+                    matrix.scale(bone.worldScaleX, bone.worldScaleY);
+                    matrix.rotate(bone.worldRotationX * Math.PI / 180);
+                    matrix.translate(node.g2d_worldX + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, node.g2d_worldY + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
+
+                    context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
                 }
             }
         }
