@@ -9,16 +9,11 @@ package com.genome2d.spine;
 
 import spinehaxe.attachments.PathAttachment;
 import com.genome2d.textures.GTexture;
-import com.genome2d.textures.GTextureManager;
 
 import spinehaxe.Bone;
 import spinehaxe.Skin;
 import spinehaxe.atlas.Atlas;
-import spinehaxe.attachments.AtlasAttachmentLoader;
-import spinehaxe.attachments.Attachment;
-
 import spinehaxe.attachments.AttachmentLoader;
-import spinehaxe.attachments.AttachmentType;
 import spinehaxe.attachments.BoundingBoxAttachment;
 import spinehaxe.attachments.MeshAttachment;
 import spinehaxe.attachments.RegionAttachment;

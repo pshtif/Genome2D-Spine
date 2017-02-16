@@ -8,7 +8,6 @@
 package com.genome2d.components.renderable;
 
 import com.genome2d.geom.GMatrix;
-import com.genome2d.geom.GMatrix3D;
 import com.genome2d.context.GBlendMode;
 import com.genome2d.Genome2D;
 import com.genome2d.components.GComponent;
@@ -20,7 +19,6 @@ import com.genome2d.spine.GAtlasAttachmentLoader;
 import com.genome2d.spine.GAtlasTextureLoader;
 import com.genome2d.textures.GTexture;
 import com.genome2d.geom.GRectangle;
-import haxe.ds.Vector;
 
 import spinehaxe.Bone;
 import spinehaxe.Skeleton;
@@ -98,12 +96,6 @@ class GSpine extends GComponent implements IGRenderable
     }
 
     public function render(p_camera:GCamera, p_useMatrix:Bool):Void {
-        var rotate:Bool = (node.g2d_worldRotation != 0);
-        var sx:Float = node.g2d_worldScaleX;
-        var sy:Float = node.g2d_worldScaleY;
-        var fx:Float = sx*sy/Math.abs(sx*sy);
-        var cos:Float = Math.cos(node.g2d_worldRotation);
-        var sin:Float = Math.sin(node.g2d_worldRotation);
         var matrix:GMatrix = new GMatrix();
         var context:IGContext = Genome2D.getInstance().getContext();
 
