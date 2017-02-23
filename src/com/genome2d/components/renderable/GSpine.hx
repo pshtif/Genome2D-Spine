@@ -145,7 +145,7 @@ class GSpine extends GComponent implements IGRenderable
         return hit;
     }
 
-    override public function dispose():Void {
+    override public function onDispose():Void {
         node.core.onUpdate.remove(update);
 
         // pridal som if na _atlasLoader, lebo mi to tu padlo, ked som v tutorial bani talkol npc lindy a pocas miznutia
