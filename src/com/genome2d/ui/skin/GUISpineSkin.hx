@@ -32,7 +32,7 @@ class GUISpineSkin extends GUISkin {
         var tx:Float = p_left + (p_right - p_left)/2;
         var ty:Float = p_top + (p_bottom - p_top)/2;
 
-        spine.render(tx, ty);
+        spine.render(tx, ty, 1, 1);
 
         return true;
     }

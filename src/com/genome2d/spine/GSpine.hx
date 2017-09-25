@@ -89,7 +89,7 @@ class GSpine
         }
     }
 
-    public function render(p_x:Float, p_y:Float):Void {
+    public function render(p_x:Float, p_y:Float, p_scaleX:Float, p_scaleY:Float):Void {
         var matrix:GMatrix = new GMatrix();
         var context:IGContext = Genome2D.getInstance().getContext();
 
@@ -104,6 +104,7 @@ class GSpine
 
                     var texture:GTexture = cast regionAttachment.rendererObject;
                     matrix.identity();
+                    matrix.scale(p_scaleX, p_scaleY);
                     matrix.scale(regionAttachment.scaleX,regionAttachment.scaleY);
                     matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
                     matrix.scale(bone.worldScaleX, bone.worldScaleY);
