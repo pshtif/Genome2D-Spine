@@ -5,32 +5,26 @@
  * Time: 14:03
  * To change this template use File | Settings | File Templates.
  */
-package com.genome2d.components.renderable;
+package com.genome2d.spine;
 
-import com.genome2d.geom.GMatrix;
+import com.genome2d.geom.GRectangle;
 import com.genome2d.context.GBlendMode;
-import com.genome2d.Genome2D;
-import com.genome2d.components.GComponent;
-import com.genome2d.components.renderable.IGRenderable;
-import com.genome2d.context.GCamera;
+import spinehaxe.Bone;
+import spinehaxe.attachments.RegionAttachment;
+import spinehaxe.Slot;
 import com.genome2d.context.IGContext;
-import com.genome2d.input.GMouseInput;
+import com.genome2d.geom.GMatrix;
 import com.genome2d.spine.GAtlasAttachmentLoader;
 import com.genome2d.spine.GAtlasTextureLoader;
 import com.genome2d.textures.GTexture;
-import com.genome2d.geom.GRectangle;
-
-import spinehaxe.Bone;
-import spinehaxe.Skeleton;
-import spinehaxe.SkeletonData;
-import spinehaxe.SkeletonJson;
-import spinehaxe.Slot;
 import spinehaxe.animation.AnimationState;
 import spinehaxe.animation.AnimationStateData;
 import spinehaxe.atlas.Atlas;
-import spinehaxe.attachments.RegionAttachment;
+import spinehaxe.Skeleton;
+import spinehaxe.SkeletonData;
+import spinehaxe.SkeletonJson;
 
-class GSpine extends GComponent implements IGRenderable
+class GSpine
 {
     private var _attachmentLoader:GAtlasAttachmentLoader;
     private var _atlasLoader:GAtlasTextureLoader;
@@ -41,15 +35,12 @@ class GSpine extends GComponent implements IGRenderable
     private var _skeletons:Map<String,Skeleton>;
     private var _activeSkeleton:Skeleton;
 
-    override public function init():Void {
+    public function new(p_atlas:String, p_texture:GTexture, p_defaultAnim:String = "stand"):Void {
         _skeletons = new Map<String,Skeleton>();
         _states = new Map<String,AnimationState>();
 
-        node.core.onUpdate.add(update);
-    }
-
-    public function setup(p_atlas:String, p_texture:GTexture, p_defaultAnim:String = "stand"):Void {
         _atlasLoader = new GAtlasTextureLoader(p_texture);
+
         var atlas:Atlas = new Atlas(p_atlas, _atlasLoader);
         _attachmentLoader = new GAtlasAttachmentLoader(atlas);
     }
@@ -78,13 +69,16 @@ class GSpine extends GComponent implements IGRenderable
         _states.set(p_id, state);
     }
 
-    public function setActiveSkeleton(p_skeletonId:String, p_anim:String):Void {
+    public function setActiveSkeleton(p_skeletonId:String):Void {
         if (_skeletons.get(p_skeletonId) != null && _activeSkeleton != _skeletons.get(p_skeletonId)) {
             _activeSkeleton = _skeletons.get(p_skeletonId);
             _activeState = _states.get(p_skeletonId);
-            _activeState.setAnimationByName(0, p_anim, true);
-            _activeState.update(Math.random());
         }
+    }
+
+    public function setAnimation(p_trackIndex:Int, p_animId:String, p_loop:Bool):Void {
+        _activeState.setAnimationByName(p_trackIndex, p_animId, p_loop);
+        //_activeState.update(Math.random());
     }
 
     public function update(p_deltaTime:Float):Void {
@@ -95,7 +89,7 @@ class GSpine extends GComponent implements IGRenderable
         }
     }
 
-    public function render(p_camera:GCamera, p_useMatrix:Bool):Void {
+    public function render(p_x:Float, p_y:Float):Void {
         var matrix:GMatrix = new GMatrix();
         var context:IGContext = Genome2D.getInstance().getContext();
 
@@ -114,42 +108,16 @@ class GSpine extends GComponent implements IGRenderable
                     matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
                     matrix.scale(bone.worldScaleX, bone.worldScaleY);
                     matrix.rotate(bone.worldRotationX * Math.PI / 180);
-                    matrix.translate(node.g2d_worldX + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, node.g2d_worldY + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
+                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
 
                     context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
                 }
             }
         }
     }
-	
-    public function getBounds(p_bounds:GRectangle = null):GRectangle {
-        if (p_bounds != null) p_bounds.setTo(-60, -60, 100, 60);
-        else p_bounds = new GRectangle(-60,-60,100,60);
-        return p_bounds;
-    }
 
-    public function captureMouseInput(p_input:GMouseInput):Void {
-        p_input.captured = p_input.captured || hitTest(p_input.localX, p_input.localY);
-    }
-
-    public function hitTest(p_x:Float,p_y:Float):Bool {
-        var hit:Bool = false;
-        var width:Int = 60;
-        var height:Int = 70;
-
-        p_x = p_x / width + .5;
-        p_y = p_y / height + .95;
-
-        hit = (p_x >= 0 && p_x <= 1 && p_y >= 0 && p_y <= 1);
-
-        return hit;
-    }
-
-    override public function onDispose():Void {
-        node.core.onUpdate.remove(update);
-
-        // pridal som if na _atlasLoader, lebo mi to tu padlo, ked som v tutorial bani talkol npc lindy a pocas miznutia
-        // som sa prepol do campu
+    public function dispose():Void {
+        // Not sure this should be disposed if there is potentional reuse
         if (_atlasLoader != null) {
             _atlasLoader.dispose();
         }
