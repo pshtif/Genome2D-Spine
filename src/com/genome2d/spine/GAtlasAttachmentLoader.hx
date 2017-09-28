@@ -7,6 +7,7 @@
  */
 package com.genome2d.spine;
 
+import spinehaxe.atlas.AtlasRegion;
 import spinehaxe.attachments.PathAttachment;
 import com.genome2d.textures.GTexture;
 
@@ -40,11 +41,32 @@ class GAtlasAttachmentLoader implements AttachmentLoader {
         regionAttachment.regionOriginalHeight = texture.height;
         return regionAttachment;
     }
+    public function newMeshAttachment(skin:Skin, name:String, path:String):MeshAttachment {
+        var attachment:MeshAttachment = new MeshAttachment(name);
 
-    /** @return May be null to not load an attachment. */
-    public function newMeshAttachment(skin:Skin, name:String, path:String) : MeshAttachment {
-        return null;
+        var texture:GTexture = cast g2d_atlas.findRegion(path).rendererObject;
+
+        attachment.rendererObject = texture;
+//
+        var region:AtlasRegion = g2d_atlas.findRegion(path);
+
+        var scaleX:Float = 1;
+        var scaleY:Float = 1;
+        attachment.regionU = 0;
+        attachment.regionV = 0;
+        attachment.regionU2 = 1;
+        attachment.regionV2 = 1;
+        attachment.regionRotate = region.rotate;
+        attachment.regionOffsetX = texture.pivotX * texture.width;
+        attachment.regionOffsetY = texture.pivotY * texture.height;
+        attachment.regionWidth = texture.width;
+        attachment.regionHeight = texture.height;
+        attachment.regionOriginalWidth = texture.width;
+        attachment.regionOriginalHeight = texture.height;
+        return attachment;
     }
+
+
 
     /** @return May be null to not load an attachment. */
     public function newBoundingBoxAttachment (skin:Skin, name:String) : BoundingBoxAttachment {

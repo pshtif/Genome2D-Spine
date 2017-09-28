@@ -7,6 +7,7 @@
  */
 package com.genome2d.spine;
 
+import spinehaxe.attachments.MeshAttachment;
 import com.genome2d.geom.GRectangle;
 import com.genome2d.context.GBlendMode;
 import spinehaxe.Bone;
@@ -95,23 +96,46 @@ class GSpine
 
         if (_activeSkeleton != null) {
             var drawOrder:Array<Slot> = _activeSkeleton.drawOrder;
+            var texture:GTexture;
+            var meshVertices:Array<Float>;
 
             for (i in 0...drawOrder.length) {
                 var slot:Slot = drawOrder[i];
-                var regionAttachment:RegionAttachment = cast slot.attachment;
-                if (regionAttachment != null) {
+                if (Std.is(slot.attachment, RegionAttachment)) {
+                    var regionAttachment:RegionAttachment = cast slot.attachment;
                     var bone:Bone = slot.bone;
 
-                    var texture:GTexture = cast regionAttachment.rendererObject;
+                    texture = cast regionAttachment.rendererObject;
                     matrix.identity();
                     matrix.scale(p_scaleX, p_scaleY);
                     matrix.scale(regionAttachment.scaleX,regionAttachment.scaleY);
                     matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
                     matrix.scale(bone.worldScaleX, bone.worldScaleY);
                     matrix.rotate(bone.worldRotationX * Math.PI / 180);
-                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
+
+                    matrix.translate(p_x + p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
+//                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
 
                     context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+                } else if (Std.is(slot.attachment, MeshAttachment)) {
+
+                    var meshAttachment:MeshAttachment = cast slot.attachment;
+                    var bone:Bone = slot.bone;
+
+                    meshVertices = [];
+                    meshAttachment.computeWorldVertices(slot,meshVertices);
+                    texture = cast meshAttachment.rendererObject;
+                    var uvs:Array<Float> = [];
+                    var vs:Array<Float> = [];
+                    for (j in 0...meshAttachment.triangles.length) {
+                        vs.push(meshVertices[meshAttachment.triangles[j]*2]);
+                        vs.push(meshVertices[meshAttachment.triangles[j]*2+1]);
+                        uvs.push(meshAttachment.uvs[meshAttachment.triangles[j]*2]);
+                        uvs.push(meshAttachment.uvs[meshAttachment.triangles[j]*2+1]);
+                    }
+
+                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, 1, 1, 1, 1);
+
                 }
             }
         }
