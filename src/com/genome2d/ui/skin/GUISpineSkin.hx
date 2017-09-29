@@ -11,7 +11,7 @@ package com.genome2d.ui.skin;
 // Not prototypable due to reference tree
 import com.genome2d.spine.GSpine;
 class GUISpineSkin extends GUISkin {
-    public var spine:GSpine
+    public var spine:GSpine;
 
     override public function getMinWidth():Float {
         return 0;
