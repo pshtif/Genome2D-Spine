@@ -109,9 +109,9 @@ class GSpine
                     matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
                     matrix.scale(bone.worldScaleX, bone.worldScaleY);
                     matrix.rotate(bone.worldRotationX * Math.PI / 180);
-                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
+                    matrix.translate(p_x + p_scaleX * (bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY * (bone.worldY  + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
 
-                    context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+                    context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty, slot.r, slot.g, slot.b, slot.a);
                 }
             }
         }
