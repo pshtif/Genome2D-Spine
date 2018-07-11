@@ -135,7 +135,7 @@ class GSpine
                     }
 
                     context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, 1, 1, 1, 1);
-
+                    
                 }
             }
         }

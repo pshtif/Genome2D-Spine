@@ -11,7 +11,7 @@ package com.genome2d.ui.skin;
 // Not prototypable due to reference tree
 import com.genome2d.spine.GSpine;
 class GUISpineSkin extends GUISkin {
-    public var spine:GSpine
+    public var spine:GSpine;
 
     override public function getMinWidth():Float {
         return 0;
@@ -42,7 +42,7 @@ class GUISpineSkin extends GUISkin {
     }
 
     override public function clone():GUISkin {
-        var clone:GUISpineSkin = new GUIParticleSkin("", spine, (g2d_origin == null)?this:cast g2d_origin);
+        var clone:GUISpineSkin = new GUISpineSkin("", spine, (g2d_origin == null)?this:cast g2d_origin);
         clone.red = red;
         clone.green = green;
         clone.blue = blue;
