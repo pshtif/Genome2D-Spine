@@ -36,6 +36,8 @@ class GSpine
     private var _skeletons:Map<String,Skeleton>;
     private var _activeSkeleton:Skeleton;
 
+    private var _matrix:GMatrix;
+
     public function new(p_atlas:String, p_texture:GTexture, p_defaultAnim:String = "stand"):Void {
         _skeletons = new Map<String,Skeleton>();
         _states = new Map<String,AnimationState>();
@@ -44,6 +46,8 @@ class GSpine
 
         var atlas:Atlas = new Atlas(p_atlas, _atlasLoader);
         _attachmentLoader = new GAtlasAttachmentLoader(atlas);
+        
+        _matrix = new GMatrix();
     }
 
     public function setAttachment(p_slotName:String, p_attachmentName:String):Void {
@@ -91,7 +95,6 @@ class GSpine
     }
 
     public function render(p_x:Float, p_y:Float, p_scaleX:Float, p_scaleY:Float):Void {
-        var matrix:GMatrix = new GMatrix();
         var context:IGContext = Genome2D.getInstance().getContext();
 
         if (_activeSkeleton != null) {
@@ -106,17 +109,16 @@ class GSpine
                     var bone:Bone = slot.bone;
 
                     texture = cast regionAttachment.rendererObject;
-                    matrix.identity();
-                    matrix.scale(p_scaleX, p_scaleY);
-                    matrix.scale(regionAttachment.scaleX,regionAttachment.scaleY);
-                    matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
-                    matrix.scale(bone.worldScaleX, bone.worldScaleY);
-                    matrix.rotate(bone.worldRotationX * Math.PI / 180);
+                    _matrix.identity();
+                    _matrix.scale(p_scaleX * regionAttachment.scaleX, p_scaleY * regionAttachment.scaleY);
+                    _matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
+                    _matrix.scale(bone.worldScaleX, bone.worldScaleY);
+                    _matrix.rotate(bone.worldRotationX * Math.PI / 180);
 
-                    matrix.translate(p_x + p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
+                    _matrix.translate(p_x + p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
 //                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
 
-                    context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+                    context.drawMatrix(texture, GBlendMode.NORMAL, _matrix.a, _matrix.b, _matrix.c, _matrix.d, _matrix.tx, _matrix.ty);
                 } else if (Std.is(slot.attachment, MeshAttachment)) {
 
                     var meshAttachment:MeshAttachment = cast slot.attachment;
