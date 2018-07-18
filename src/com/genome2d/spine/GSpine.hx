@@ -116,7 +116,7 @@ class GSpine
                     matrix.translate(p_x + p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
 //                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
 
-                    context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+                    context.drawMatrix(texture, GBlendMode.NORMAL, matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty, slot.r, slot.g, slot.b, slot.a);
                 } else if (Std.is(slot.attachment, MeshAttachment)) {
 
                     var meshAttachment:MeshAttachment = cast slot.attachment;
@@ -134,7 +134,7 @@ class GSpine
                         uvs.push(meshAttachment.uvs[meshAttachment.triangles[j]*2+1]);
                     }
 
-                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, 1, 1, 1, 1);
+                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, slot.r, slot.g, slot.b, slot.a);
 
                 }
             }
