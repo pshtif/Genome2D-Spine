@@ -110,10 +110,10 @@ class GSpine
 
                     texture = cast regionAttachment.rendererObject;
                     _matrix.identity();
-                    _matrix.scale(p_scaleX * regionAttachment.scaleX, p_scaleY * regionAttachment.scaleY);
                     _matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
                     _matrix.scale(bone.worldScaleX, bone.worldScaleY);
                     _matrix.rotate(bone.worldRotationX * Math.PI / 180);
+                    _matrix.scale(p_scaleX * regionAttachment.scaleX, p_scaleY * regionAttachment.scaleY);
 
                     _matrix.translate(p_x + p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
 //                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
