@@ -80,6 +80,11 @@ class GSpine
             _activeState = _states.get(p_skeletonId);
         }
     }
+    
+    public var activeAnimationState(get, never):AnimationState;
+    private function get_activeAnimationState():AnimationState {
+        return _activeState;
+    }
 
     public function setAnimation(p_trackIndex:Int, p_animId:String, p_loop:Bool):Void {
         _activeState.setAnimationByName(p_trackIndex, p_animId, p_loop);
