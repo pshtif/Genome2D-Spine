@@ -33,6 +33,7 @@ package spinehaxe.atlas;
 import spinehaxe.atlas.Format;
 import spinehaxe.Exception.IllegalArgumentException;
 import haxe.ds.Vector;
+import com.genome2d.debug.GDebug;
 
 
 class Atlas {
@@ -164,7 +165,7 @@ class Reader {
 	var index:Int = 0;
 
 	public function new(text:String) {
-		var regex:EReg = new EReg("[ \t]*((\r\n)|\r|\n)[ \t]*", "g");
+		var regex:EReg = new EReg("[ \t]*((\r\n)|\r|\n)+[ \t]*", "g");
 		lines = regex.split(text);
 	}
 
@@ -175,7 +176,15 @@ class Reader {
 	public function readLine():String {
 		if (index >= lines.length)
 			return null;
-		return lines[index++];
+
+		// sHTiF - added this to remove empty lines during line fetching as Unity adds crazy white spaces to text assets, didn't want to modify the regex for compatibility so using this hack instead
+		var line:String = lines[index++];
+		while (line.length == 0 || line.charCodeAt(0) == 13) {
+			if (index >= lines.length)
+				return null;
+			line = lines[index++];
+		}
+		return line;
 	}
 
 	public function readValue():String {

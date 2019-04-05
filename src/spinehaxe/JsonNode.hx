@@ -3,6 +3,7 @@ package spinehaxe;
 import haxe.Json;
 import Reflect;
 import haxe.ds.Vector;
+import com.genome2d.debug.GDebug;
 
 
 abstract JsonNode(Dynamic) from Dynamic to Dynamic {
@@ -15,7 +16,8 @@ abstract JsonNode(Dynamic) from Dynamic to Dynamic {
 	}
 
 	public inline function fields():Array<String> {
-		return Reflect.fields(this);
+		// sHTiF - Fix for C# target where this can be actually null
+		return this == null ? [] : Reflect.fields(this);
 	}
 
 	public inline function getDynamic(field:String):Dynamic {
