@@ -1,9 +1,10 @@
-/**
- * Created with IntelliJ IDEA.
- * User: sHTiF
- * Date: 17.5.2013
- * Time: 12:37
- * To change this template use File | Settings | File Templates.
+/*
+ * 	Genome2D - 2D GPU Framework
+ * 	http://www.genome2d.com
+ *
+ *	Copyright 2011-2019 Peter Stefcek. All rights reserved.
+ *
+ *	License:: ./doc/LICENSE.md (https://github.com/pshtif/Genome2D/blob/master/LICENSE.md)
  */
 package com.genome2d.spine;
 

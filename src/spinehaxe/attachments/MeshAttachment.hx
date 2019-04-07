@@ -69,6 +69,7 @@ class MeshAttachment extends VertexAttachment {
 
 	public function new(name:String) {
 		super(name);
+		type = AttachmentType.mesh;
 	}
 
 	public function updateUVs():Void {

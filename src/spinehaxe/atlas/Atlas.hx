@@ -179,7 +179,7 @@ class Reader {
 
 		// sHTiF - added this to remove empty lines during line fetching as Unity adds crazy white spaces to text assets, didn't want to modify the regex for compatibility so using this hack instead
 		var line:String = lines[index++];
-		while (line.length == 0 || line.charCodeAt(0) == 13) {
+		while (line.length == 0 || line.charCodeAt(0) == 13 || line.charCodeAt(0) == 10) {
 			if (index >= lines.length)
 				return null;
 			line = lines[index++];

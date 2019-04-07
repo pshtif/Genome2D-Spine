@@ -103,7 +103,9 @@ class SkeletonJson {
 			boneData.scaleY = boneMap.getFloat("scaleY", 1);
 			boneData.shearX = boneMap.getFloat("shearX", 0);
 			boneData.shearY = boneMap.getFloat("shearY", 0);
-			boneData.transformMode = boneMap.getStr("transform", TransformMode.normal);
+			//boneData.transformMode = boneMap.getStr("transform", TransformMode.normal);
+			// sHTiF - creating enums instead of abstract string wrappers better performance working with enums in heavy loops
+			boneData.transformMode = Type.createEnum(TransformMode, boneMap.getStr("transform", "normal"));
 			skeletonData.bones.push(boneData);
 		}
 
@@ -298,13 +300,14 @@ class SkeletonJson {
 	private function readAttachment(map:JsonNode, skin:Skin, slotIndex:Int, name:String):Attachment {
 		name = map.getStr("name", name);
 
-		var type:AttachmentType = map.getStr("type", "region");
+		// sHTiF - once again getting rid of strings and working with real enums
+		var type:AttachmentType = Type.createEnum(AttachmentType, map.getStr("type", "region"));
 		var path:String = map.getStr("path", name);
 
 		var scale:Float = this.scale;
 		var color:String;
 		switch (type) {
-			case AttachmentType.Region:
+			case AttachmentType.region:
 				var region:RegionAttachment = attachmentLoader.newRegionAttachment(skin, name, path);
 				if (region == null) return null;
 				region.path = path;
@@ -327,7 +330,7 @@ class SkeletonJson {
 				region.updateOffset();
 				return region;
 
-			case AttachmentType.Mesh, AttachmentType.LinkedMesh:
+			case AttachmentType.mesh, AttachmentType.linkedmesh:
 				var mesh:MeshAttachment = attachmentLoader.newMeshAttachment(skin, name, path);
 				if (mesh == null) return null;
 				mesh.path = path;
@@ -359,13 +362,13 @@ class SkeletonJson {
 				if (map.hasOwnProperty("edges")) mesh.edges = map.getIntArray("edges");
 				return mesh;
 
-			case AttachmentType.BoundingBox:
+			case AttachmentType.boundingbox:
 				var box:BoundingBoxAttachment = attachmentLoader.newBoundingBoxAttachment(skin, name);
 				if (box == null) return null;
 				readVertices(map, box, map.getInt("vertexCount") << 1);
 				return box;
 
-			case AttachmentType.Path:
+			case AttachmentType.path:
 				var path:PathAttachment = attachmentLoader.newPathAttachment(skin, name);
 				if (path == null) return null;
 				path.closed = map.getBool("closed", false);

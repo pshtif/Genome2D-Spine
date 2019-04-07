@@ -28,11 +28,13 @@ package spinehaxe.attachments;
 import spinehaxe.Exception;
 
 class Attachment {
+	public var type:AttachmentType;
 	public var name:String;
 
 	public function new(name:String) {
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
 		this.name = name;
+		type = AttachmentType.none;
 	}
 
 	public function toString():String {

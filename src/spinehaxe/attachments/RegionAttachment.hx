@@ -69,6 +69,7 @@ class RegionAttachment extends Attachment {
 
 	public function new(name:String) {
 		super(name);
+		type = AttachmentType.region;
 		offset = ArrayUtils.allocFloat(8);
 		uvs = new Array();
 		for (i in 0...8) { uvs[i] = 0; }

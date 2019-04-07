@@ -32,9 +32,12 @@ package spinehaxe;
 import haxe.ds.Vector;
 import spinehaxe.attachments.Attachment;
 import spinehaxe.Exception;
+import com.genome2d.geom.GMatrix;
 using Lambda;
 
 class Slot {
+	public var cachedMatrix:GMatrix;
+
 	var _data:SlotData;
 	var _bone:Bone;
 	var _attachment:Attachment;
@@ -56,6 +59,7 @@ class Slot {
 		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
 		_data = data;
 		_bone = bone;
+		cachedMatrix = new GMatrix();
 		setToSetupPose();
 	}
 

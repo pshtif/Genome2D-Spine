@@ -1,9 +1,10 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Peter "sHTiF" Stefcek
- * Date: 17.5.2013
- * Time: 14:03
- * To change this template use File | Settings | File Templates.
+/*
+ * 	Genome2D - 2D GPU Framework
+ * 	http://www.genome2d.com
+ *
+ *	Copyright 2011-2014 Peter Stefcek. All rights reserved.
+ *
+ *	License:: ./doc/LICENSE.md (https://github.com/pshtif/Genome2D/blob/master/LICENSE.md)
  */
 package com.genome2d.spine;
 
@@ -24,6 +25,7 @@ import spinehaxe.atlas.Atlas;
 import spinehaxe.Skeleton;
 import spinehaxe.SkeletonData;
 import spinehaxe.SkeletonJson;
+import spinehaxe.attachments.AttachmentType;
 
 class GSpine
 {
@@ -43,11 +45,10 @@ class GSpine
         _states = new Map<String,AnimationState>();
 
         _atlasLoader = new GAtlasTextureLoader(p_texture);
+        _matrix = new GMatrix();
 
         var atlas:Atlas = new Atlas(p_atlas, _atlasLoader);
         _attachmentLoader = new GAtlasAttachmentLoader(atlas);
-        
-        _matrix = new GMatrix();
     }
 
     public function setAttachment(p_slotName:String, p_attachmentName:String):Void {
@@ -99,37 +100,40 @@ class GSpine
         }
     }
 
-    public function render(p_x:Float, p_y:Float, p_scaleX:Float, p_scaleY:Float):Void {
+    public function render(p_x:Float, p_y:Float, p_scaleX:Float, p_scaleY:Float, p_updateMatrix:Bool = true):Void {
         var context:IGContext = Genome2D.getInstance().getContext();
 
         if (_activeSkeleton != null) {
             var drawOrder:Array<Slot> = _activeSkeleton.drawOrder;
             var texture:GTexture;
-            var meshVertices:Array<Float>;
 
-            for (i in 0...drawOrder.length) {
-                var slot:Slot = drawOrder[i];
-                if (Std.is(slot.attachment, RegionAttachment)) {
+            for (slot in drawOrder) {
+                if (slot.attachment == null) continue;
+                if (slot.attachment.type == AttachmentType.region) {
                     var regionAttachment:RegionAttachment = cast slot.attachment;
                     var bone:Bone = slot.bone;
 
                     texture = cast regionAttachment.rendererObject;
-                    _matrix.identity();
-                    _matrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
-                    _matrix.scale(bone.worldScaleX, bone.worldScaleY);
-                    _matrix.rotate(bone.worldRotationX * Math.PI / 180);
-                    _matrix.scale(p_scaleX * regionAttachment.scaleX, p_scaleY * regionAttachment.scaleY);
-
-                    _matrix.translate(p_x + p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_y + p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
-//                    matrix.translate(p_x + bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b, p_y + bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d);
-
-                    context.drawMatrix(texture, GBlendMode.NORMAL, _matrix.a, _matrix.b, _matrix.c, _matrix.d, _matrix.tx, _matrix.ty, slot.r, slot.g, slot.b, slot.a);
-                } else if (Std.is(slot.attachment, MeshAttachment)) {
+                    
+                    if (p_updateMatrix) {
+                        slot.cachedMatrix.identity();
+                        slot.cachedMatrix.rotate(-regionAttachment.rotation * Math.PI/180 + (texture.rotate?Math.PI / 2:0));
+                        slot.cachedMatrix.scale(bone.worldScaleX, bone.worldScaleY);
+                        slot.cachedMatrix.rotate(bone.worldRotationX * Math.PI / 180);
+                        slot.cachedMatrix.scale(p_scaleX * regionAttachment.scaleX, p_scaleY * regionAttachment.scaleY);
+                        slot.cachedMatrix.translate(p_scaleX*(bone.worldX + regionAttachment.x * bone.a + regionAttachment.y * bone.b), p_scaleY*(bone.worldY + regionAttachment.x * bone.c + regionAttachment.y * bone.d));
+                    } 
+                    _matrix.copyFrom(slot.cachedMatrix);
+                    _matrix.translate(p_x, p_y);
+                    
+                    /**/
+                    context.drawMatrix(texture, GBlendMode.NORMAL, _matrix.a, _matrix.b, _matrix.c, _matrix.d, _matrix.tx, _matrix.ty, slot.r, slot.g, slot.b, slot.a, null);
+                } else if (slot.attachment.type == AttachmentType.mesh) {
 
                     var meshAttachment:MeshAttachment = cast slot.attachment;
                     var bone:Bone = slot.bone;
 
-                    meshVertices = [];
+                    var meshVertices:Array<Float> = [];
                     meshAttachment.computeWorldVertices(slot,meshVertices);
                     texture = cast meshAttachment.rendererObject;
                     var uvs:Array<Float> = [];
@@ -141,8 +145,7 @@ class GSpine
                         uvs.push(meshAttachment.uvs[meshAttachment.triangles[j]*2+1]);
                     }
 
-                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, slot.r, slot.g, slot.b, slot.a);
-                    
+                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, slot.r, slot.g, slot.b, slot.a, null);
                 }
             }
         }

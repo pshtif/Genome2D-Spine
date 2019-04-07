@@ -25,12 +25,14 @@
 
 package spinehaxe.attachments;
 
-@:enum
-abstract AttachmentType(String) from String to String {
-	var Region = "region";
-	var RegionSequence = "regionsequence";
-	var BoundingBox = "boundingbox";
-	var Mesh = "mesh";
-	var LinkedMesh = "linkedmesh";
-	var Path = "path";
+// sHTiF - refactored to enum to avoid string allocation
+
+enum AttachmentType {
+	none;
+	region;
+	regionsequence;
+	boundingbox;
+	mesh;
+	linkedmesh;
+	path;
 }

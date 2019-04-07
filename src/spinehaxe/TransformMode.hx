@@ -30,6 +30,16 @@
 
 package spinehaxe;
 
+// sHTiF - refactored to enums to avoid string allocation
+
+enum TransformMode {
+	normal;
+	onlyTranslation;
+	noRotationOrReflection;
+	noScale;
+	noScaleOrReflection;
+}
+/*
 @:enum
 abstract TransformMode(String) from String to String {
 	var normal = "normal";
@@ -38,3 +48,4 @@ abstract TransformMode(String) from String to String {
 	var noScale = "noScale";
 	var noScaleOrReflection = "noScaleOrReflection";
 }
+/**/

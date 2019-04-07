@@ -1,9 +1,10 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Peter "sHTiF" Stefcek
- * Date: 17.5.2013
- * Time: 14:03
- * To change this template use File | Settings | File Templates.
+/*
+ * 	Genome2D - 2D GPU Framework
+ * 	http://www.genome2d.com
+ *
+ *	Copyright 2011-2019 Peter Stefcek. All rights reserved.
+ *
+ *	License:: ./doc/LICENSE.md (https://github.com/pshtif/Genome2D/blob/master/LICENSE.md)
  */
 package com.genome2d.components.renderable;
 
@@ -33,6 +34,8 @@ import spinehaxe.attachments.RegionAttachment;
 
 class GSpineComponent extends GComponent implements IGRenderable
 {
+    public var autoUpdate:Bool = true;
+
     private var _spine:GSpine;
     public function getSpine():GSpine {
         return _spine;
@@ -42,16 +45,20 @@ class GSpineComponent extends GComponent implements IGRenderable
         node.core.onUpdate.add(update);
     }
 
+    public function setupReferenced(p_spine:GSpine) {
+        _spine = p_spine;
+    }
+
     public function setup(p_atlas:String, p_texture:GTexture, p_defaultAnim:String = "stand"):Void {
         _spine = new GSpine(p_atlas, p_texture, p_defaultAnim);
     }
 
     public function update(p_deltaTime:Float):Void {
-        if (_spine != null) _spine.update(p_deltaTime);
+        if (_spine != null && autoUpdate) _spine.update(p_deltaTime);
     }
 
     public function render(p_camera:GCamera, p_useMatrix:Bool):Void {
-        _spine.render(node.g2d_worldX, node.g2d_worldY, node.g2d_worldScaleX, node.g2d_worldScaleY);
+        _spine.render(node.g2d_worldX, node.g2d_worldY, node.g2d_worldScaleX, node.g2d_worldScaleY, autoUpdate);
     }
 	
     public function getBounds(p_bounds:GRectangle = null):GRectangle {
