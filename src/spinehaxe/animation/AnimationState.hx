@@ -59,7 +59,11 @@ class AnimationState {
 		if (data == null) throw "data can not be null";
 		this.data = data;
 		this.queue = new EventQueue(this);
-		this.trackEntryPool = new Pool(function() return new TrackEntry());
+		this.trackEntryPool = new Pool(instantiator);
+	}
+
+	private function instantiator():TrackEntry {
+		return new TrackEntry();
 	}
 
 	public function update(delta:Float):Void {
