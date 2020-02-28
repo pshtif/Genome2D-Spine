@@ -63,6 +63,13 @@ class GSpine
         }
     }
 
+    public function getActiveSkeleton():Skeleton {
+        return _activeSkeleton;
+    }
+    public function getActiveState():AnimationState {
+        return _activeState;
+    }
+
     public function addSkeleton(p_id:String, p_json:String):Void {
         var json:SkeletonJson = new SkeletonJson(_attachmentLoader);
         var skeletonData:SkeletonData = json.readSkeletonData(p_json);
