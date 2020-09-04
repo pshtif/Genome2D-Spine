@@ -133,7 +133,8 @@ class GSpine
                     _matrix.copyFrom(slot.cachedMatrix);
                     _matrix.translate(p_x, p_y);
                     
-                    /**/
+                    /*
+                    */
                     context.drawMatrix(texture, GBlendMode.NORMAL, _matrix.a, _matrix.b, _matrix.c, _matrix.d, _matrix.tx, _matrix.ty, slot.r, slot.g, slot.b, slot.a, null);
                 } else if (slot.attachment.type == AttachmentType.mesh) {
 

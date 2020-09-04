@@ -48,4 +48,5 @@ abstract TransformMode(String) from String to String {
 	var noScale = "noScale";
 	var noScaleOrReflection = "noScaleOrReflection";
 }
-/**/
+/*
+*/
