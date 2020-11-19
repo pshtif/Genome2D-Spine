@@ -36,6 +36,8 @@ class GSpineComponent extends GComponent implements IGRenderable
 {
     public var autoUpdate:Bool = true;
 
+    public var alpha:Float = 1;
+
     private var _spine:GSpine;
     public function getSpine():GSpine {
         return _spine;
@@ -58,7 +60,7 @@ class GSpineComponent extends GComponent implements IGRenderable
     }
 
     public function render(p_camera:GCamera, p_useMatrix:Bool):Void {
-        _spine.render(node.g2d_worldX, node.g2d_worldY, node.g2d_worldScaleX, node.g2d_worldScaleY, autoUpdate);
+        _spine.render(node.g2d_worldX, node.g2d_worldY, node.g2d_worldScaleX, node.g2d_worldScaleY, alpha, autoUpdate);
     }
 	
     public function getBounds(p_bounds:GRectangle = null):GRectangle {

@@ -25,6 +25,7 @@ import spinehaxe.atlas.Atlas;
 import spinehaxe.Skeleton;
 import spinehaxe.SkeletonData;
 import spinehaxe.SkeletonJson;
+import com.genome2d.debug.GDebug;
 import spinehaxe.attachments.AttachmentType;
 
 class GSpine
@@ -107,7 +108,7 @@ class GSpine
         }
     }
 
-    public function render(p_x:Float, p_y:Float, p_scaleX:Float, p_scaleY:Float, p_updateMatrix:Bool = true):Void {
+    public function render(p_x:Float, p_y:Float, p_scaleX:Float, p_scaleY:Float, p_alpha:Float, p_updateMatrix:Bool = true):Void {
         var context:IGContext = Genome2D.getInstance().getContext();
 
         if (_activeSkeleton != null) {
@@ -135,7 +136,7 @@ class GSpine
                     
                     /*
                     */
-                    context.drawMatrix(texture, GBlendMode.NORMAL, _matrix.a, _matrix.b, _matrix.c, _matrix.d, _matrix.tx, _matrix.ty, slot.r, slot.g, slot.b, slot.a, null);
+                    context.drawMatrix(texture, GBlendMode.NORMAL, _matrix.a, _matrix.b, _matrix.c, _matrix.d, _matrix.tx, _matrix.ty, slot.r, slot.g, slot.b, slot.a * p_alpha, null);
                 } else if (slot.attachment.type == AttachmentType.mesh) {
 
                     var meshAttachment:MeshAttachment = cast slot.attachment;
@@ -153,7 +154,7 @@ class GSpine
                         uvs.push(meshAttachment.uvs[meshAttachment.triangles[j]*2+1]);
                     }
 
-                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, slot.r, slot.g, slot.b, slot.a, null);
+                    context.drawPoly(texture, GBlendMode.NORMAL, vs, uvs, p_x, p_y, p_scaleX, p_scaleY, 0, slot.r, slot.g, slot.b, slot.a * p_alpha, null);
                 }
             }
         }
